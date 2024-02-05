@@ -1,14 +1,18 @@
 name: Download Kaggle Dataset
 
 on: [push]
-
+permissions:
+  contents: write
 jobs:
   download_dataset:
     runs-on: ubuntu-latest
 
     steps:
+
     - name: Check out repository code
       uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.GH_PAT }}
 
     - name: Set up Python
       uses: actions/setup-python@v2
