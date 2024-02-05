@@ -29,10 +29,13 @@ jobs:
         KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
         KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
       run: |
+        if [ -d "dataset" ]; then
+        echo "Dataset already installed"
+        else
         mkdir dataset
         kaggle datasets download -d mmmarchetti/transfusion-dataset -p dataset
         unzip dataset/transfusion-dataset.zip -d dataset
-
+        fi
     - name: Commit and push changes
       run: |
         git config --local user.email "action@github.com"
@@ -41,4 +44,3 @@ jobs:
         git commit -m "Add dataset" -a
         git push
 
-        
