@@ -39,6 +39,7 @@ jobs:
         mkdir dataset
         kaggle datasets download -d mmmarchetti/transfusion-dataset -p dataset
         unzip dataset/transfusion-dataset.zip -d dataset
+        rm dataset/transfusion-dataset.zip
     - name: Check for changes in files other than dataset
       id: code_changes
       run: |
@@ -47,6 +48,7 @@ jobs:
     - name: Run pytest
       run: |
         pytest source/unit_test.py
+  
     - name: Commit and push changes
       if: steps.code_changes.outputs.code_changes == 'code-changes=true'
       run: |
