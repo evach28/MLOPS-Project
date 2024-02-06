@@ -50,5 +50,5 @@ jobs:
           echo "No changes in the dataset, skipping commit and push."
         else
           git commit -m "Add dataset"
-          git push
+          git push origin dev
         fi
