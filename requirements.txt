@@ -1,4 +1,4 @@
-kaggle
+kaggle>=1.6.1
 pandas
 scikit-learn
 pytest
