@@ -47,8 +47,8 @@ jobs:
 
     - name: Commit and push changes
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Action"
         git checkout -b dev
         git pull origin dev
         git merge --no-commit --no-ff feature_fetch_data
