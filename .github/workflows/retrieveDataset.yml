@@ -30,8 +30,8 @@ jobs:
         KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
       run: |
         if [ -d "dataset" ]; then
-        echo "Deleting existing dataset directory"
-        rm -rf dataset
+          echo "Deleting existing dataset directory"
+          rm -rf dataset
         fi
         mkdir dataset
         kaggle datasets download -d mmmarchetti/transfusion-dataset -p dataset
@@ -41,5 +41,5 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add dataset/*
-        git commit -a -m "Add dataset" --allow-empty
+        git commit -a -m "Add dataset"
         git push
