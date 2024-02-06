@@ -46,9 +46,5 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add dataset/*
-        if git diff --staged --quiet; then
-          echo "No changes in the dataset, skipping commit and push."
-        else
-          git commit -m "Add dataset"
-          git push origin dev
-        fi
+        git commit -m "Add dataset"
+        git push origin dev
