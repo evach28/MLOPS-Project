@@ -1,6 +1,9 @@
 name: Download Kaggle Dataset
 
-on: [push]
+on:
+  push:
+    branches:
+      - feature_fetch_data
 permissions:
   contents: write
 jobs:
@@ -13,6 +16,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         token: ${{ secrets.GH_PAT }}
+        ref: feature_fetch_data
 
     - name: Set up Python
       uses: actions/setup-python@v2
@@ -37,14 +41,27 @@ jobs:
         kaggle datasets download -d mmmarchetti/transfusion-dataset -p dataset
         unzip dataset/transfusion-dataset.zip -d dataset
 
+    - name: Check for changes in files other than dataset
+      id: code_changes
+      run: |
+        git diff --quiet || echo "code-changes=true" >> $GITHUB_ENV
+  
     - name: Run pytest
       run: |
         pytest source/unit_test.py
 
     - name: Commit and push changes
+      if: steps.code_changes.outputs.code_changes == 'code-changes=true'
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add dataset/*
-        git commit -m "Add dataset"
+        if git diff --staged --quiet; then
+          echo "No changes in the dataset, skipping commit and push."
+        else
+          git add dataset/*
+          git commit -m "Add dataset"
+          git push
+        fi
+        git add .
+        git commit -m "Push changes to dev branch"
         git push origin dev
