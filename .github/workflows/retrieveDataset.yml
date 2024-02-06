@@ -49,6 +49,9 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
+        git checkout dev
+        git pull origin dev
+        git merge --no-commit --no-ff feature_fetch_data
         git add .
         git commit -m "Push changes to dev branch"
-        git push origin feature_fetch_data:dev
+        git push origin dev
