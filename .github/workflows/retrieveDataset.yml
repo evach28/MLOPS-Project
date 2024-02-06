@@ -41,17 +41,11 @@ jobs:
         kaggle datasets download -d mmmarchetti/transfusion-dataset -p dataset
         unzip dataset/transfusion-dataset.zip -d dataset
 
-    - name: Check for changes in files other than dataset
-      id: code_changes
-      run: |
-        git diff --quiet || echo "code-changes=true" >> $GITHUB_ENV
-  
     - name: Run pytest
       run: |
         pytest source/unit_test.py
 
     - name: Commit and push changes
-      if: steps.code_changes.outputs.code_changes == 'code-changes=true'
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
