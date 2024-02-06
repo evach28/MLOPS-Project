@@ -36,6 +36,11 @@ jobs:
         mkdir dataset
         kaggle datasets download -d mmmarchetti/transfusion-dataset -p dataset
         unzip dataset/transfusion-dataset.zip -d dataset
+
+    - name: Run pytest
+      run: |
+        pytest source/unit_test.py
+
     - name: Commit and push changes
       run: |
         git config --local user.email "action@github.com"
