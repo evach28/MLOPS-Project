@@ -51,4 +51,4 @@ jobs:
         git config --local user.name "GitHub Action"
         git add .
         git commit -m "Push changes to dev branch"
-        git push origin dev
+        git push origin feature_fetch_data:dev
