@@ -7,5 +7,6 @@ def test_fetch_data():
     data = fetch_data(filepath)
     assert not data.empty
     assert isinstance(data, pd.DataFrame)
-    print("First 5 rows :")
-    print(data.head(5))
+    return {
+        "First 5 rows": data.head(5).to_dict(orient='records')
+    }
